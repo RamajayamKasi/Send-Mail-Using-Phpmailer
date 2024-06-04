@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="send_mail.css">
+    <link rel="stylesheet" href="library/bootstrap.min.css">
+    <title>Send Mail</title>
+</head>
+<body>
+    <div class="mail_container m-2">
+        <div class="mail_fields p-4 bg-light w-50">
+            <h4 class="text-center">Send Mail App</h4>
+            <label for="mail_subject">Mail Subject:
+                <input type="text" id="mail_subject" class="form-control" name="mail_subject" placeholder="Enter the mail subject.">
+            </label>
+            <label for="mail_to">Mail To:
+                <select name="mail_to" class="form-control" id="mail_to"></select>
+            </label>
+            <label for="mail_cc">Mail Cc:
+                <select name="mail_cc" class="form-control" id="mail_cc"></select>
+
+            </label>
+            <label for="mail_bcc">Mail Bcc:
+                <select name="mail_bcc" class="form-control" id="mail_bcc"></select>
+            </label>
+            <label for="mail_content"> Mail Content:
+                <textarea class="form-control" name="mail_content" id="mail_content" cols="30" rows="5" placeholder="Enter the mail content."></textarea>
+            </label>
+            <div class="send_mail_btn text-center mt-2 mb-2">
+                <button id="send_mail" class="btn btn-primary">Send Mail</button>
+                <button id="reset_fields" class="btn btn-danger">Reset Fields</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script src="library/jquery.js"></script>
+<script src="library/bootstrap.min.js"></script>
+<script src="library/swal.js"></script>
+<script src="library/ckeditor5/ckeditor.js"></script>
+<script>
+    CKEDITOR.replace('mail_content');
+</script>
+</html>

@@ -1,0 +1,19 @@
+*{
+    margin:0px;
+    padding:0px;
+}
+.mail_container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+/* .mail_fields{
+    width: 50%;
+    background-color: azure;
+    padding: 10px;
+} */
+.mail_fields label,input,select{
+    display: block;
+
+}
