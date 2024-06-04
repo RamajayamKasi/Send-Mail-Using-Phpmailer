@@ -5,11 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="send_mail.css">
     <link rel="stylesheet" href="library/bootstrap.min.css">
+    <link rel="stylesheet" href="library/select2.css">
+
     <title>Send Mail</title>
 </head>
 <body>
     <div class="mail_container m-2">
-        <div class="mail_fields p-4 bg-light w-50">
+        <div class="mail_fields p-4 bg-light w-50 overflow-auto">
             <h4 class="text-center">Send Mail App</h4>
             <label for="mail_subject">Mail Subject:
                 <input type="text" id="mail_subject" class="form-control" name="mail_subject" placeholder="Enter the mail subject.">
@@ -38,8 +40,46 @@
 <script src="library/jquery.js"></script>
 <script src="library/bootstrap.min.js"></script>
 <script src="library/swal.js"></script>
-<script src="library/ckeditor5/ckeditor.js"></script>
+<script src="library/ckeditor/ckeditor.js"></script>
+<script src="library/select2.js"></script>
 <script>
-    CKEDITOR.replace('mail_content');
+    CKEDITOR.replace('mail_content',{
+        height:'100px',
+    });
+    $('#mail_to,#mail_cc,#mail_bcc').select2({
+        multiple: true,
+        width:'100%',
+        //theme: "classic",
+        minimumInputLength:2,
+    });
+    $(document).on('click','#send_mail',function(e){
+        let mail_subject=$('#mail_subject').val().trim();
+        let mail_content=$('#mail_content').val().trim();
+        let mail_to=$('#mail_to').val();
+        let mail_cc=$('#mail_cc').val();
+        let mail_bcc=$('#mail_bcc').val();
+        $.ajax({
+            url:'send_mail.php',
+            method:'post',
+            data:{mail_subject,mail_content,mail_to,mail_cc,mail_bcc},
+            dataType:'json',
+            success:function(response){
+                swal.fire({
+                    icon:response['icon'],
+                    text:response['message'],
+                    allowOutsidClick:false,
+                }).then((result)=>{
+                    $('#mail_subject,#mail_content').val('');
+                    $('#mail_to,#mail_cc,#mail_bcc').val(null).trigger('change');
+                })
+            },error(xhr,status,error){
+                console.log(xhr,status,error)
+            }
+        })
+    })
+    $(document).on('click','#reset_fields',function(e){
+        $('#mail_subject,#mail_content').val('');
+        $('#mail_to,#mail_cc,#mail_bcc').val(null).trigger('change');
+    })
 </script>
 </html>
